@@ -1,12 +1,11 @@
 import { Router } from "express";
-import { methods as languageController } from "./../controllers/language.controller";
+import { methods as alimentosController } from "../controllers/language.controller";
 
 const router = Router();
 
-router.get("/", languageController.getLanguages);
-router.get("/:id", languageController.getLanguage);
-router.post("/", languageController.addLanguage);
-router.put("/:id", languageController.updateLanguage);
-router.delete("/:id", languageController.deleteLanguage);
-
+router.get("/", alimentosController.getalimentos);
+router.get("/:id", alimentosController.getalimento);
+router.post("/", alimentosController.addalimento);
+router.put("/:id", alimentosController.updatealimento);
+router.delete("/:id", alimentosController.deletealimento);
 export default router;
