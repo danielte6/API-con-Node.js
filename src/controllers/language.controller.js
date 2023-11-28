@@ -1,9 +1,9 @@
-import { getConnection } from "./../database/database";
+import { getConnection } from "../database/database";
 
-const getLanguages = async (req, res) => {
+const getalimentos = async (req, res) => {
     try {
         const connection = await getConnection();
-        const result = await connection.query("SELECT id, name, programmers FROM language");
+        const result = await connection.query("SELECT id, nombredelproducto, preciodelproducto FROM alimentos");
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -11,11 +11,11 @@ const getLanguages = async (req, res) => {
     }
 };
 
-const getLanguage = async (req, res) => {
+const getalimento = async (req, res) => {
     try {
         const { id } = req.params;
         const connection = await getConnection();
-        const result = await connection.query("SELECT id, name, programmers FROM language WHERE id = ?", id);
+        const result = await connection.query("SELECT id, nombredelproducto, preciodelproducto FROM alimentos WHERE id = ?", id);
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -23,36 +23,36 @@ const getLanguage = async (req, res) => {
     }
 };
 
-const addLanguage = async (req, res) => {
+const addalimento = async (req, res) => {
     try {
-        const { name, programmers } = req.body;
+        const { nombredelproducto, preciodelproducto } = req.body;
 
-        if (name === undefined || programmers === undefined) {
+        if (nombredelproducto === undefined || preciodelproducto === undefined) {
             res.status(400).json({ message: "Bad Request. Please fill all field." });
         }
 
-        const language = { name, programmers };
+        const alimentos = { nombredelproducto, preciodelproducto };
         const connection = await getConnection();
-        await connection.query("INSERT INTO language SET ?", language);
-        res.json({ message: "Language added" });
+        await connection.query("INSERT INTO alimentos SET ?", alimentos);
+        res.json({ message: "alimentos added" });
     } catch (error) {
         res.status(500);
         res.send(error.message);
     }
 };
 
-const updateLanguage = async (req, res) => {
+const updatealimento = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, programmers } = req.body;
+        const { nombredelproducto, preciodelproducto } = req.body;
 
-        if (id === undefined || name === undefined || programmers === undefined) {
+        if (id === undefined || nombredelproducto === undefined || preciodelproducto === undefined) {
             res.status(400).json({ message: "Bad Request. Please fill all field." });
         }
 
-        const language = { name, programmers };
+        const alimentos = { nombredelproducto, preciodelproducto };
         const connection = await getConnection();
-        const result = await connection.query("UPDATE language SET ? WHERE id = ?", [language, id]);
+        const result = await connection.query("UPDATE alimentos SET ? WHERE id = ?", [alimentos, id]);
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -60,11 +60,11 @@ const updateLanguage = async (req, res) => {
     }
 };
 
-const deleteLanguage = async (req, res) => {
+const deletealimento = async (req, res) => {
     try {
         const { id } = req.params;
         const connection = await getConnection();
-        const result = await connection.query("DELETE FROM language WHERE id = ?", id);
+        const result = await connection.query("DELETE FROM alimentos WHERE id = ?", id);
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -73,9 +73,9 @@ const deleteLanguage = async (req, res) => {
 };
 
 export const methods = {
-    getLanguages,
-    getLanguage,
-    addLanguage,
-    updateLanguage,
-    deleteLanguage
+    getalimentos,
+    getalimento,
+    addalimento,
+    updatealimento,
+    deletealimento
 };
